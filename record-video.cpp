@@ -1,7 +1,7 @@
 #include <opencv2/opencv.hpp>
 #include <librealsense2/rs.hpp>
 
-int main() {
+int main(int argc, char** argv) {
     rs2::config cfg;
     cfg.enable_stream(RS2_STREAM_COLOR, 848, 480, RS2_FORMAT_BGR8, 60);
     // Start streaming with default recommended configuration
@@ -13,7 +13,7 @@ int main() {
     int image_width = color.get_width();
     int image_height = color.get_height();
 
-    cv::VideoWriter writer("out.mp4", 0x00000021, 60, cv::Size(848, 480));
+    cv::VideoWriter writer(argv[0], 0x00000021, 60, cv::Size(848, 480));
 
     while(true) {
         cv::Mat img = cv::Mat(cv::Size(image_width, image_height), CV_8UC3, (void *) color.get_data(), cv::Mat::AUTO_STEP);
